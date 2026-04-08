@@ -10,11 +10,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ 
-        headerStyle: { backgroundColor: '#000' }, 
-        headerTintColor: '#fff' 
+        headerStyle: { backgroundColor: '#0a0a0b', borderBottomWidth: 0 }, 
+        headerTintColor: '#8A2BE2',
+        headerTitleStyle: { fontWeight: 'bold', letterSpacing: 2 }
       }}>
-        <Stack.Screen name="Home" component={Home} options={{ title: 'FLIX APP' }} />
-        <Stack.Screen name="Details" component={Details} options={{ title: 'Detalhes' }} />
+        <Stack.Screen name="Home" component={Home} options={{ title: 'AURASTREAM' }} />
+        <Stack.Screen name="Details" component={Details} options={{ title: 'DETALHES' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

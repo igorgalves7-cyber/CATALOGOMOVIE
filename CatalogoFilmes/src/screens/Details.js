@@ -1,29 +1,40 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { COLORS } from '../services/api';
 
-export default function Details({ route }) {
-  const { movie } = route.params; // Recebe o filme que foi clicado
+export default function Details({ route, navigation }) {
+  const { movie } = route.params;
 
   return (
     <ScrollView style={styles.container}>
       <Image 
-        source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }} 
-        style={styles.banner} 
+        source={{ uri: movie.image_url }} 
+        style={styles.banner}
       />
       <View style={styles.content}>
         <Text style={styles.title}>{movie.title}</Text>
+        <View style={styles.row}>
+          <Text style={styles.info}>{movie.year} | ★ {movie.rating}</Text>
+        </View>
         <Text style={styles.description}>
-          Este é um MVP de catálogo. Aqui viria a sinopse detalhada do filme vinda da API do TMDB.
+          {movie.description}
         </Text>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+          <Text style={styles.buttonText}>VOLTAR AO FLUXO</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#1a1a1a' },
-  banner: { width: '100%', height: 450, resizeMode: 'cover' },
-  content: { padding: 20 },
-  title: { fontSize: 28, fontWeight: 'bold', color: '#fff', marginBottom: 10 },
-  description: { fontSize: 16, color: '#ccc', lineHeight: 24 }
+  container: { flex: 1, backgroundColor: COLORS.background },
+  banner: { width: '100%', height: 500, backgroundColor: '#000' },
+  content: { marginTop: -30, backgroundColor: COLORS.background, borderRadius: 30, padding: 30 },
+  title: { fontSize: 32, fontWeight: 'bold', color: COLORS.text },
+  row: { marginVertical: 10 },
+  info: { color: COLORS.badgetText, fontSize: 18, fontWeight: 'bold' },
+  description: { color: COLORS.textSecondary, fontSize: 16, lineHeight: 24, marginTop: 15 },
+  button: { backgroundColor: COLORS.primary, padding: 20, borderRadius: 15, marginTop: 30, alignItems: 'center' },
+  buttonText: { color: '#fff', fontWeight: 'bold' }
 });
