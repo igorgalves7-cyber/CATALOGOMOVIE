@@ -14,7 +14,7 @@ const mockData = [
     image_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2L5l4Ax2yPUZVBS2D98vfRe7Hpvw7CxJ3oZ13XwIhPvhb9agj4mjVxQhlgknKRRyPqih5e6QM-lNJAVhNZ8K3WSKtGSYOrCmN3mq6RoQ&s=10',
     rating: '8.5',
     year: '2022'
-    descdescription: 'Após dois anos espreitando as ruas como Batman, Bruce Wayne mergulha nas sombras de Gotham City...'
+    
   },
   { 
     id: '2', 
