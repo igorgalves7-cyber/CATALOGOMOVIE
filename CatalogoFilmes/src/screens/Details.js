@@ -1,62 +1,36 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { COLORS } from '../services/api';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
 export default function Details({ route, navigation }) {
+  // Evita crash se tentar entrar na tela sem dados
+  if (!route.params?.movie) return null;
   const { movie } = route.params;
 
   return (
     <ScrollView style={styles.container}>
-      <Image 
-        source={{ uri: movie.image_url }} 
-        style={styles.banner}
-        resizeMode="cover"
-      />
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+        <Text style={{color: '#fff', fontWeight: 'bold'}}>← Voltar</Text>
+      </TouchableOpacity>
+      
       <View style={styles.content}>
-        <Text style={styles.title}>{movie.title}</Text>
-        <View style={styles.row}>
-          <Text style={styles.info}>{movie.year} | ★ {movie.rating}</Text>
+        <Image source={{ uri: movie.image }} style={styles.poster} />
+        <View style={styles.info}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.year}>{movie.year} • ⭐ {movie.rating}</Text>
+          <Text style={styles.desc}>{movie.desc}</Text>
         </View>
-        
-        {/* AQUI FICA A SINOPSE DINÂMICA */}
-        <Text style={styles.description}>
-          {movie.description}
-        </Text>
-
-        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>VOLTAR AO FLUXO</Text>
-        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
-  banner: { width: '100%', height: 450 },
-  content: { 
-    marginTop: -30, 
-    backgroundColor: COLORS.background, 
-    borderTopLeftRadius: 30, 
-    borderTopRightRadius: 30, 
-    padding: 30 
-  },
-  title: { fontSize: 32, fontWeight: 'bold', color: COLORS.text },
-  row: { marginVertical: 10 },
-  info: { color: COLORS.badgetText, fontSize: 18, fontWeight: 'bold' },
-  description: { 
-    color: COLORS.textSecondary, 
-    fontSize: 16, 
-    lineHeight: 24, 
-    marginTop: 15,
-    textAlign: 'justify' 
-  },
-  button: { 
-    backgroundColor: COLORS.primary, 
-    padding: 20, 
-    borderRadius: 15, 
-    marginTop: 30, 
-    alignItems: 'center' 
-  },
-  buttonText: { color: '#fff', fontWeight: 'bold', letterSpacing: 1 }
+  container: { flex: 1, backgroundColor: '#0a0a0b', padding: 50 },
+  backBtn: { marginBottom: 30, padding: 12, backgroundColor: '#1a1a1a', width: 120, borderRadius: 8, alignItems: 'center' },
+  content: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
+  poster: { width: 350, height: 500, borderRadius: 20 },
+  info: { flex: 1, minWidth: 300, marginLeft: 50 },
+  title: { color: '#fff', fontSize: 50, fontWeight: 'bold' },
+  year: { color: '#8A2BE2', fontSize: 22, marginVertical: 15, fontWeight: 'bold' },
+  desc: { color: '#ccc', fontSize: 18, lineHeight: 28 },
 });
